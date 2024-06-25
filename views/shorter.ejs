@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #555;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #666;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #5cb85c;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Url Shorter</h1>
+        <form method="post" id="urlForm">
+            <div class="form-group">
+                <label for="domine">Domine Name</label>
+                <input type="text" id="domine" name="domine" required>
+            </div>
+            <div class="form-group">
+                <label for="original">original URL</label>
+                <input type="text" id="original" name="original" required>
+            </div>
+            <div class="form-group">
+                <button onclick="getShorterUrl()">Submit</button>
+            </div>
+            <div class="form-group">
+                <p id="error" style="display: none;">Domine and URL requried</p>
+                <p id="shorter_url" style="display: none;"></p>
+            </div>
+        </form>
+        <script>
+            const urlForm=document.getElementById("urlForm");
+            const domine=urlForm.domine.value.trim();
+            const url=urlForm.original.value.trim();
+            if(!domine ||  !url){
+                document.getElementById("error").style.display="block";
+            }
+            else{
+                const formData=new FormData(urlForm);
+                const response=await fetch("/shorter",{
+                    method:"POST",
+                    body:formData
+                });
+                if(!response.ok){
+                    document.getElementById("error").value="Error occured while shortining url";
+                }
+                const data=await response.json();
+                console.log(data.body);
+                document.getElementById("shorter_url").style.display="block";
+                document.getElementById("shorter_url").value=data.body;
+            }
+
+        </script>
+    </div>
+</body>
+</html>

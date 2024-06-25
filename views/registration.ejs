@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #5cb85c;
+            outline: none;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+        }
+
+        fieldset legend {
+            font-weight: bold;
+            padding: 0 10px;
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px 20px;
+            }
+        
+            h1 {
+                font-size: 20px;
+            }
+        
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Registration Form</h1>
+        <form autocomplete="on" id="userForm" action="/user/register" method="post" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" minlength="5" maxlength="20" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="1" max="80">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" minlength="3" maxlength="30" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName">
+            </div>
+            <div class="form-group">
+                <label for="panNumber">PAN Number</label>
+                <input type="text" id="panNumber" name="panNumber">
+            </div>
+            <div class="form-group">
+                <label for="hobbies">Hobbies</label>
+                <input type="text" id="hobbies" name="hobbies">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" minlength="8" maxlength="15">
+            </div>
+            <fieldset>
+                <legend>Address</legend>
+                <div class="form-group">
+                    <label for="village">Village</label>
+                    <input type="text" id="village" name="village">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city">
+                </div>
+                <div class="form-group">
+                    <label for="district">District</label>
+                    <input type="text" id="district" name="district">
+                </div>
+                <div class="form-group">
+                    <label for="pincode">PIN Code</label>
+                    <input type="text" id="pincode" name="pincode" pattern="[0-9]{6}">
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state">
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country">
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function validateForm(){
+            const username = form.username.value.trim();
+            const email = form.email.value.trim();
+            const phone = form.phone.value.trim();
+            const panNumber = form.panNumber.value.trim();
+            const pincode = form.pincode.value.trim();
+            const emailPattern = /^[\w.-]+@[\w.-]+\.\w{2,3}$/;
+            const phonePattern = /^(\+([1-9]{1,2}))?([1-9][0-9]{9})$/;
+            const panPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            const pincodePattern = /^[0-9]{6}$/;
+            if (!emailPattern.test(email)) {
+                alert('Please provide a valid email address');
+                return false;
+            }
+        
+            if (phone && !phonePattern.test(phone)) {
+                alert('Invalid Mobile Number');
+                return false;
+            }
+        
+            if (panNumber && !panPattern.test(panNumber)) {
+                alert('Invalid PAN number');
+                return false;
+            }
+        
+            if (pincode && !pincodePattern.test(pincode)) {
+                alert('Invalid PIN code');
+                return false;
+            }
+        
+            alert('Form submitted successfully!');
+            return true;
+
+        }
+
+    </script>
+</body>
+</html>

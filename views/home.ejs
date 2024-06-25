@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+            h1{
+                font-family: 'Courier New', Courier, monospace;
+                margin: auto;
+                text-align: center;
+                color: green;
+            }
+            .button {
+              display: inline-block;
+              padding: 10px 20px;
+              text-decoration: none;
+              font-size: 16px;
+              font-weight: bold;
+              text-align: center;
+              text-decoration: none;
+              color: #fff;
+              background-color: #4CAF50;
+              border: 2px solid #4CAF50;
+              border-radius: 5px;
+              cursor: pointer;
+              transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            }
+
+            .button:hover {
+              background-color: #45a049;
+              border-color: #45a049;
+            }
+
+            .button:active {
+              background-color: #3e8e41;
+              border-color: #3e8e41;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to tiny URL</h1>
+        <% if(!isAuthenticated){ %>
+            <a class="button" href="/user/login">Login</button>
+        <% } %>
+        <% else{ %>
+            <a class="button" href="/shorter">URL Shorter</a>
+        <% } %>
+    </body>
+</html>
